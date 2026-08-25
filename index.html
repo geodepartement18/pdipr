@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Itinéraires du Cher</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script type="module" src="https://js.arcgis.com/calcite-components/3.3.3/calcite.esm.js"></script>
+<link rel="stylesheet" href="https://js.arcgis.com/calcite-components/3.3.3/calcite.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<calcite-shell>
+<calcite-navigation slot="header">
+<calcite-navigation-logo slot="logo" heading="Itinéraires du Cher" description="Promenade et randonnée" icon="map"></calcite-navigation-logo>
+<calcite-action id="aboutAction" slot="content-end" text="À propos" icon="information"></calcite-action>
+<calcite-action id="helpAction" slot="content-end" text="Aides" icon="question"></calcite-action>
+</calcite-navigation>
+<div class="app-layout">
+<calcite-shell-panel id="catalogPanel" slot="panel-start" position="start" display-mode="dock">
+<calcite-panel heading="Itinéraires">
+<div slot="header-actions-start" class="stats"><strong><span id="countDisplayed">0</span> itinéraires</strong><span><span id="totalDistance">0</span> km</span></div>
+<div class="panel-content">
+<calcite-segmented-control id="practiceFilter" scale="s" width="full">
+<calcite-segmented-control-item value="ALL" checked>Tous</calcite-segmented-control-item>
+<calcite-segmented-control-item value="Cyclo">Cyclo</calcite-segmented-control-item>
+<calcite-segmented-control-item value="Pédestre">Pédestre</calcite-segmented-control-item>
+<calcite-segmented-control-item value="Equestre">Équestre</calcite-segmented-control-item>
+<calcite-segmented-control-item value="Cyclo et pédestre">Cyclo + pédestre</calcite-segmented-control-item>
+</calcite-segmented-control>
+<calcite-input id="itinerarySearch" clearable placeholder="Rechercher un itinéraire ou une commune" icon="search"></calcite-input>
+<calcite-button id="fitAll" width="full" appearance="outline" icon-start="zoom-in-fixed">Voir tous les itinéraires</calcite-button>
+<calcite-loader id="loader" label="Chargement"></calcite-loader>
+<calcite-list id="itineraryList" selection-mode="single"></calcite-list>
+<calcite-notice id="emptyNotice" kind="info" icon="information"><div slot="message">Aucun itinéraire à afficher.</div></calcite-notice>
+</div>
+<div slot="footer" class="catalog-footer"><span>Total : <strong id="footerTotal">0</strong></span><span id="footerSelection">Aucune sélection</span></div>
+</calcite-panel>
+</calcite-shell-panel>
+<main class="map-container"><div id="map"></div>
+<div class="map-tools">
+<calcite-button id="togglePanel" kind="neutral" icon-start="panel-left" round title="Liste"></calcite-button>
+<calcite-button id="locateButton" kind="neutral" icon-start="gps-on" round title="Ma position"></calcite-button>
+<calcite-button id="printButton" kind="neutral" icon-start="print" round title="Imprimer"></calcite-button>
+</div>
+</main>
+</div>
+</calcite-shell>
+<calcite-dialog id="detailDialog" heading="Itinéraire" width="m"><div id="detailContent"></div><calcite-button slot="footer-end" id="closeDetail">Fermer</calcite-button></calcite-dialog>
+<calcite-dialog id="aboutDialog" heading="À propos" width="s"><p>Application cartographique des itinéraires de promenade et de randonnée dans le Cher.</p><p><strong>V1 Leaflet + Calcite</strong></p></calcite-dialog>
+<calcite-dialog id="helpDialog" heading="Aides" width="s"><ul><li>Utilisez les filtres.</li><li>Recherchez un itinéraire ou une commune.</li><li>Cliquez sur un itinéraire dans la liste ou sur la carte.</li></ul></calcite-dialog>
+<calcite-alert id="errorAlert" kind="danger" placement="top" heading="Erreur" label="Erreur" closable></calcite-alert>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script type="module" src="js/app.js"></script>
+</body></html>
